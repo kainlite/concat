@@ -1,7 +1,12 @@
 package main
 
+type Chunks struct {
+	Filename string
+	Parts    []string
+}
+
 type Configuration struct {
 	Outdir string
-	Chunks string
-	Values map[string]string
+	Indir  string
+	Chunks map[string]Chunks
 }

@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"strings"
 
 	"github.com/spf13/viper"
 )
@@ -28,21 +27,22 @@ func main() {
 		log.Fatalf("unable to decode into struct, %v", err)
 	}
 
-	for filename, values := range configuration.Values {
-		log.Printf("Processing %+v, with values %+v", filename, values)
-		svalues := strings.Split(values, " ")
+	log.Printf("Loaded configuration: %+v", configuration)
+
+	for _, chunks := range configuration.Chunks {
+		log.Printf("Processing %+v, with values %+v", chunks.Filename, chunks)
 
 		// Clean slate
-		_ = os.Remove(configuration.Outdir + "/" + filename)
+		_ = os.Remove(configuration.Outdir + "/" + chunks.Filename)
 
 		// Concatenate stuff without mercy
-		for _, chunk := range svalues {
-			infile, err := ioutil.ReadFile(configuration.Chunks + "/" + chunk)
+		for _, chunk := range chunks.Parts {
+			infile, err := ioutil.ReadFile(configuration.Indir + "/" + chunk)
 			if err != nil {
 				panic(err)
 			}
 
-			outfile, err := os.OpenFile(configuration.Outdir+"/"+filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0600)
+			outfile, err := os.OpenFile(configuration.Outdir+"/"+chunks.Filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0600)
 			if err != nil {
 				panic(err)
 			}

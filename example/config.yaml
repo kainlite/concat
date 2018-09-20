@@ -1,15 +1,21 @@
 outdir: out
-chunks: example
-values:
-  file_a:
-    base
-    body_a
-    foot
-  file_b:
-    base
-    body_b
-    foot
-  file_c:
-    base
-    body_c
-    foot
+indir: example
+chunks:
+  id_a:
+    filename: "fancy_name_a.txt"
+    parts:
+      - base
+      - body_a
+      - foot
+  id_b:
+    filename: "fancy_name_b.txt"
+    parts:
+      - base
+      - body_b
+      - foot
+  id_c:
+    filename: "fancy_name_c.txt"
+    parts:
+      - base
+      - body_c
+      - foot
