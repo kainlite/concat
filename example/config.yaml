@@ -1,0 +1,15 @@
+outdir: out
+chunks: example
+values:
+  file_a:
+    base
+    body_a
+    foot
+  file_b:
+    base
+    body_b
+    foot
+  file_c:
+    base
+    body_c
+    foot
